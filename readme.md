@@ -9,6 +9,6 @@ A robust RESTful API to power a charity donation platform. It includes:
 
 ## Tech Stack
 
-- **Framework** Node.js with Express.js
-- **Database** MySql
-- **ORM** Sequelize
+- **Framework:** Node.js with Express.js
+- **Database:** MySql
+- **ORM:** Sequelize
