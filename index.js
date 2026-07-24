@@ -3,6 +3,7 @@ require("dotenv").config();
 
 const authRouter = require("./routes/auth.routes");
 const userRouter = require("./routes/user.routes");
+const charityRouter = require("./routes/charity.routes");
 const authenticateUser = require("./middlewares/auth");
 const cookieParser = require("cookie-parser");
 
@@ -14,6 +15,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", authRouter);
 app.use("/api/user", authenticateUser, userRouter);
+app.use("/api/charity", authenticateUser, charityRouter);
 
 app.listen(PORT, () => {
   console.log("Server running on port ", PORT);
