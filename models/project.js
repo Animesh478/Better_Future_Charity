@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Charity extends Model {
+  class Project extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,27 +9,27 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Charity.belongsTo(models.User, {
-        foreignKey: "userId",
-        as: "owner",
-        field: "user_id",
+      Project.belongsTo(models.Charity, {
+        foreignKey: "charityId",
+        as: "charity",
+        field: "charity_id",
       });
 
-      Charity.hasMany(models.Project, {
-        foreignKey: "charityId",
-        as: "projects",
-        field: "charity_id",
+      Project.hasMany(models.Donation, {
+        foreignKey: "projectId",
+        as: "donations",
+        field: "project_id",
       });
     }
   }
-  Charity.init(
+  Project.init(
     {
       id: {
         type: DataTypes.UUID,
-        primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
       },
-      name: {
+      title: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -37,26 +37,26 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TEXT,
         allowNull: false,
       },
-      registrationNumber: {
-        type: DataTypes.STRING,
+      goalAmount: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        unique: true,
-        field: "registration_number",
+        field: "goal_amount",
       },
-      status: {
-        type: DataTypes.ENUM("Pending", "Approved", "Suspended", "Rejected"),
+      raisedAmount: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
         allowNull: false,
-        defaultValue: "Pending",
+        field: "raised_amount",
       },
     },
     {
       sequelize,
-      modelName: "Charity",
-      tableName: "charities",
+      modelName: "Project",
+      tableName: "projects",
       freezeTableName: true,
       timestamps: true,
       underscored: true,
     },
   );
-  return Charity;
+  return Project;
 };

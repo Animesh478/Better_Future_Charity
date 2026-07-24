@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Donation extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,59 +9,51 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasMany(models.Charity, {
-        foreignKey: "userId",
-        as: "charities",
-        field: "user_id",
+      Donation.belongsTo(models.Project, {
+        foreignKey: "projectId",
+        as: "project",
+        field: "project_id",
       });
 
-      User.hasMany(models.Donation, {
+      Donation.belongsTo(models.User, {
         foreignKey: "userId",
-        as: "donations",
+        as: "donor",
         field: "user_id",
       });
     }
   }
-  User.init(
+  Donation.init(
     {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      name: {
-        type: DataTypes.STRING,
+      donationAmount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        field: "donation_amount",
+      },
+      status: {
+        type: DataTypes.ENUM("Pending", "Success", "Failed"),
+        defaultValue: "Pending",
         allowNull: false,
       },
-      email: {
+      transactionId: {
         type: DataTypes.STRING,
-        allowNull: false,
         unique: true,
-      },
-      passwordHash: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        field: "password_hash",
-      },
-      phoneNumber: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        field: "phone_number",
-      },
-      role: {
-        type: DataTypes.ENUM("Donor", "Charity", "Admin"),
-        allowNull: false,
-        defaultValue: "Donor",
+        allowNull: true,
+        field: "transaction_id",
       },
     },
     {
       sequelize,
-      modelName: "User",
-      tableName: "user",
+      modelName: "Donation",
+      tableName: "donations",
       freezeTableName: true,
-      underscored: true,
       timestamps: true,
+      underscored: true,
     },
   );
-  return User;
+  return Donation;
 };
