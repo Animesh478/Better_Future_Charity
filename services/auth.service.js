@@ -50,6 +50,7 @@ const loginUser = async function (userCredentials) {
     id: existingUser.id,
     name: existingUser.name,
     email: existingUser.email,
+    role: existingUser.role,
   };
   const token = createToken(payload);
   return token;
