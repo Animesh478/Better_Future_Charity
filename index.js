@@ -8,6 +8,7 @@ const adminRouter = require("./routes/admin.routes");
 const authenticateUser = require("./middlewares/auth.middleware");
 const cookieParser = require("cookie-parser");
 const verifyAdmin = require("./middlewares/admin.middleware");
+const projectRouter = require("./routes/project.routes");
 
 const PORT = process.env.PORT;
 const app = express();
@@ -19,6 +20,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", authenticateUser, userRouter);
 app.use("/api/charity", authenticateUser, charityRouter);
 app.use("/api/admin", authenticateUser, verifyAdmin, adminRouter);
+app.use("/api/project", authenticateUser, projectRouter);
 
 app.listen(PORT, () => {
   console.log("Server running on port ", PORT);

@@ -3,6 +3,6 @@ const { approveCharity } = require("../controllers/admin.controller");
 
 const adminRouter = express.Router();
 
-adminRouter.route("/charity/:id/approve").patch(approveCharity);
+adminRouter.route("/charity/:charityId/approve").patch(approveCharity);
 
 module.exports = adminRouter;

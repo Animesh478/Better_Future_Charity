@@ -1,7 +1,7 @@
 const { approveCharityInDb } = require("../services/admin.service");
 
 const approveCharity = async function (req, res) {
-  const charityId = req.params.id;
+  const charityId = req.params.charityId;
   try {
     const result = await approveCharityInDb(charityId);
     if (result?.error === "NOT_FOUND") {
