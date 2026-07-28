@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const { Charity, User } = require("../models/index");
 
 const createCharityInDb = async function (userDetails, charityDetails) {
