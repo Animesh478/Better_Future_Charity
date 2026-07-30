@@ -8,6 +8,6 @@ const authenticateUser = require("../middlewares/auth.middleware");
 const donationRouter = express.Router();
 
 donationRouter.route("/checkout").post(authenticateUser, makeDonation);
-donationRouter.route("/verify").post(handleReturn);
+donationRouter.route("/verify").get(handleReturn);
 
 module.exports = donationRouter;

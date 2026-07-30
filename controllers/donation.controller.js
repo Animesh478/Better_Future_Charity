@@ -48,7 +48,7 @@ const handleWebhook = async function (req, res) {
 
     if (event.type === "PAYMENT_SUCCESS_WEBHOOK") {
       const orderId = event.data.order.order_id;
-      const paymentId = event.data.cf_payment_id;
+      const paymentId = event.data.payment.cf_payment_id;
 
       // make changes in the database
       await fulfillDonation(orderId, paymentId);

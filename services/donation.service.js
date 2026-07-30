@@ -78,6 +78,7 @@ const fulfillDonation = async function (donationId, paymentId) {
     );
 
     // then increment the project's raised amount
+
     await Project.increment("raisedAmount", {
       by: donation.donationAmount,
       where: { id: donation.projectId },
