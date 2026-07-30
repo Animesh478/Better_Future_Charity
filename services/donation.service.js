@@ -1,6 +1,12 @@
 // const { Cashfree, CFEnvironment } = require("cashfree-pg");
 const cashfree = require("../utils/cashfree");
-const { Project, User, Donation, sequelize } = require("../models/index");
+const {
+  Project,
+  User,
+  Donation,
+  Charity,
+  sequelize,
+} = require("../models/index");
 
 // 1. create order
 const createOrder = async function (userId, projectId, amount) {
@@ -96,7 +102,34 @@ const fulfillDonation = async function (donationId, paymentId) {
   }
 };
 
+const fetchUserDonationHistory = async function (userId) {
+  // console.log("donation service, Project=");
+  const result = await Donation.findAll({
+    where: {
+      userId,
+      status: "Success",
+    },
+    order: [["createdAt", "DESC"]],
+    include: [
+      {
+        model: Project,
+        as: "project",
+        attributes: ["title"],
+        include: [
+          {
+            model: Charity,
+            as: "charity",
+            attributes: ["name", "registrationNumber"],
+          },
+        ],
+      },
+    ],
+  });
+  return result;
+};
+
 module.exports = {
   createOrder,
   fulfillDonation,
+  fetchUserDonationHistory,
 };

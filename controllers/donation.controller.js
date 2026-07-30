@@ -4,6 +4,7 @@ const cashfree = require("../utils/cashfree");
 const {
   fulfillDonation,
   createOrder,
+  fetchUserDonationHistory,
 } = require("../services/donation.service");
 
 const makeDonation = async function (req, res) {
@@ -75,8 +76,20 @@ const handleReturn = function (req, res) {
   `);
 };
 
+const getDonationHistory = async function (req, res) {
+  const userId = req.user.id;
+  try {
+    const history = await fetchUserDonationHistory(userId);
+    return res.status(200).json({ success: true, data: history });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
+
 module.exports = {
   handleWebhook,
   makeDonation,
   handleReturn,
+  getDonationHistory,
 };
