@@ -1,5 +1,47 @@
-const { approveCharityInDb } = require("../services/admin.service");
+const {
+  approveCharityInDb,
+  getAllUsersFromDb,
+  updateUserRoleInDb,
+} = require("../services/admin.service");
 
+// User management
+const listUsers = async function (req, res) {
+  const { page, limit, search } = req.query;
+  const parsedPage = parseInt(page) || 1;
+  const parsedLimit = parseInt(limit) || 10;
+  try {
+    const result = await getAllUsersFromDb(parsedPage, parsedLimit, search);
+    res.status(200).json({ success: true, data: result });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error" });
+  }
+};
+const changeUserRole = async function (req, res) {
+  const { userId } = req.params;
+  const { targetRole } = req.body;
+
+  try {
+    const result = await updateUserRoleInDb(userId, targetRole);
+    if (result.error) {
+      return res
+        .status(result.error === "NOT_FOUND" ? 404 : 400)
+        .json({ success: false, message: result.message });
+    }
+    res
+      .status(200)
+      .json({ success: true, message: "Role modified successfully" });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+// Charity management
 const approveCharity = async function (req, res) {
   const charityId = req.params.charityId;
   try {
@@ -33,4 +75,6 @@ const approveCharity = async function (req, res) {
 
 module.exports = {
   approveCharity,
+  listUsers,
+  changeUserRole,
 };
