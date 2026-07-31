@@ -1,4 +1,4 @@
-// const { Cashfree, CFEnvironment } = require("cashfree-pg");
+const PDFDocument = require("pdfkit");
 const cashfree = require("../utils/cashfree");
 const {
   Project,
@@ -128,8 +128,92 @@ const fetchUserDonationHistory = async function (userId) {
   return result;
 };
 
+const generateDonationReceipt = async function (userId, donationId, res) {
+  // fetch the donation details
+  const donation = await Donation.findOne({
+    where: {
+      id: donationId,
+      userId,
+    },
+    include: [
+      {
+        model: Project,
+        as: "project",
+        include: [
+          {
+            model: Charity,
+            as: "charity",
+          },
+        ],
+      },
+    ],
+  });
+
+  if (!donation) {
+    return { error: "NOT_FOUND", message: "Donation details not found" };
+  }
+  if (donation.status !== "Success") {
+    return {
+      error: "BAD_REQUEST",
+      message: "Cannot generate receipt for incomplete transaction",
+    };
+  }
+
+  // 3. Initialize PDF Kit document configuration
+  const doc = new PDFDocument({ margin: 50 });
+
+  // Pipe the document directly out to the Express HTTP response stream
+  doc.pipe(res);
+
+  // 4. Construct the Receipt Visual Layout Elements
+  doc
+    .fontSize(20)
+    .text("OFFICIAL DONATION RECEIPT", { align: "center" })
+    .moveDown();
+
+  doc
+    .fontSize(10)
+    .text(`Receipt Generated On: ${new Date().toLocaleDateString()}`, {
+      align: "right",
+    });
+  doc.text(`Transaction Reference: ${donation.id}`).moveDown(2);
+
+  doc
+    .fontSize(12)
+    .text(`Thank you for your generous contribution.`, { oblique: true })
+    .moveDown();
+
+  // Create a structured data presentation layout block
+  doc
+    .fontSize(14)
+    .text("Contribution Details", { underline: true })
+    .moveDown(0.5);
+  doc.fontSize(12).text(`Organization: ${donation.project.charity.name}`);
+  doc.text(`Registration No: ${donation.project.charity.registrationNumber}`);
+  doc.text(`Target Initiative: ${donation.project.title}`);
+  doc.text(`Settlement Status: Successful`).moveDown();
+
+  doc.rect(50, doc.y, 500, 30).fill("#f2f2f2");
+  doc
+    .fillColor("#000000")
+    .text(
+      `TOTAL AMOUNT CONTRIBUTED: INR ${donation.donationAmount}`,
+      60,
+      doc.y + 10,
+      {
+        bold: true,
+      },
+    );
+
+  // 5. Finalize write streams to terminate network connections cleanly
+  doc.end();
+
+  return { success: true };
+};
+
 module.exports = {
   createOrder,
   fulfillDonation,
   fetchUserDonationHistory,
+  generateDonationReceipt,
 };

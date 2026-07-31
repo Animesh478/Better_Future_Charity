@@ -5,6 +5,7 @@ const {
   fulfillDonation,
   createOrder,
   fetchUserDonationHistory,
+  generateDonationReceipt,
 } = require("../services/donation.service");
 
 const makeDonation = async function (req, res) {
@@ -87,9 +88,50 @@ const getDonationHistory = async function (req, res) {
   }
 };
 
+const fetchDonationReceipt = async function (req, res) {
+  const userId = req.user.id;
+  const donationId = req.params.donationId;
+  try {
+    // Set header options early so browser registers streaming download layout triggers
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename=receipt_${donationId}.pdf`,
+    );
+
+    const result = await generateDonationReceipt(userId, donationId, res);
+
+    // If an application error flag fires, clear headers and return error JSON configurations
+    if (result && result.error) {
+      res.removeAttribute("Content-Type");
+      res.removeAttribute("Content-Disposition");
+
+      const status =
+        result.error === "NOT_FOUND"
+          ? 404
+          : result.error === "FORBIDDEN"
+            ? 403
+            : 400;
+      return res
+        .status(status)
+        .json({ success: false, message: result.message });
+    }
+  } catch (error) {
+    console.error("PDF Generation Failure:", error);
+    // Don't use res.status here if headers have already been sent down the pipeline stream
+    if (!res.headersSent) {
+      return res.status(500).json({
+        success: false,
+        message: "Failed to compile receipt document.",
+      });
+    }
+  }
+};
+
 module.exports = {
   handleWebhook,
   makeDonation,
   handleReturn,
   getDonationHistory,
+  fetchDonationReceipt,
 };
