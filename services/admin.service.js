@@ -3,7 +3,7 @@ const { Charity, User, sequelize } = require("../models/index");
 
 // User management
 const getAllUsersFromDb = async function (page = 1, limit = 10, search) {
-  console.log("admin service, page=", page);
+  // console.log("admin service, page=", page);
   const offset = (page - 1) * limit;
   const whereClause = {};
 
@@ -45,6 +45,7 @@ const updateUserRoleInDb = async function (userId, targetRole) {
   return { user };
 };
 
+// Charity management
 const approveCharityInDb = async function (charityId) {
   const t = await sequelize.transaction();
   try {
@@ -91,8 +92,87 @@ const approveCharityInDb = async function (charityId) {
   }
 };
 
+const getAllCharitiesFromDb = async function (page = 1, limit = 10, search) {
+  const offset = (page - 1) * limit;
+  const whereClause = {};
+
+  if (search) {
+    whereClause[Op.or] = [
+      {
+        name: { [Op.like]: `%${search}%` },
+      },
+      {
+        description: { [Op.like]: `%${search}%` },
+      },
+    ];
+  }
+
+  const { count, rows } = await Charity.findAndCountAll({
+    where: whereClause,
+    limit,
+    offset,
+    order: [["createdAt", "DESC"]],
+    include: [
+      {
+        model: User,
+        as: "owner",
+        attributes: ["name", "email", "role"],
+      },
+    ],
+  });
+
+  return { currentPage: page, charities: rows, totalItems: count };
+};
+
+const updateCharityStatusInDb = async function (charityId, targetStatus) {
+  const t = await sequelize.transaction();
+  try {
+    const charity = await Charity.findByPk(charityId, { transaction: t });
+
+    if (!charity) {
+      await t.rollback();
+      return { error: "NOT_FOUND", message: "Charity record not found" };
+    }
+
+    const validStatus = ["Pending", "Approved", "Rejected", "Suspended"];
+    if (!validStatus.includes(targetStatus)) {
+      await t.rollback();
+      return {
+        error: "BAD_REQUEST",
+        message: "Invalid status specified.",
+      };
+    }
+
+    await charity.update(
+      {
+        status: targetStatus,
+      },
+      {
+        transaction: t,
+      },
+    );
+
+    // if a charity org is suspended, the user status also needs to change
+    if (targetStatus === "Suspended") {
+      await User.update(
+        { role: "Donor" },
+        { where: { id: charity.userId }, transaction: t },
+      );
+    }
+
+    await t.commit();
+    return { charity };
+  } catch (error) {
+    console.error(error);
+    await t.rollback();
+    throw error;
+  }
+};
+
 module.exports = {
   approveCharityInDb,
   getAllUsersFromDb,
   updateUserRoleInDb,
+  getAllCharitiesFromDb,
+  updateCharityStatusInDb,
 };
