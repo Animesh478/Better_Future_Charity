@@ -8,6 +8,7 @@ const adminRouter = require("./routes/admin.routes");
 const projectRouter = require("./routes/project.routes");
 const publicRouter = require("./routes/public.routes");
 const donationRouter = require("./routes/donation.routes");
+const impactReportRouter = require("./routes/impactReport.routes");
 
 const authenticateUser = require("./middlewares/auth.middleware");
 const cookieParser = require("cookie-parser");
@@ -33,6 +34,7 @@ app.use("/api/admin", authenticateUser, verifyAdmin, adminRouter);
 app.use("/api/project", authenticateUser, projectRouter);
 app.use("/api/public", publicRouter);
 app.use("/api/donations", donationRouter);
+app.use("/api/reports", authenticateUser, impactReportRouter);
 
 app.listen(PORT, () => {
   console.log("Server running on port ", PORT);

@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Project extends Model {
+  class ImpactReport extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,26 +9,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Project.belongsTo(models.Charity, {
-        foreignKey: "charityId",
-        as: "charity",
-        field: "charity_id",
-      });
-
-      Project.hasMany(models.Donation, {
+      ImpactReport.belongsTo(models.Project, {
         foreignKey: "projectId",
-        as: "donations",
-        field: "project_id",
-      });
-
-      Project.hasMany(models.ImpactReport, {
-        foreignKey: "projectId",
-        as: "reports",
+        as: "project",
         field: "project_id",
       });
     }
   }
-  Project.init(
+  ImpactReport.init(
     {
       id: {
         type: DataTypes.UUID,
@@ -39,30 +27,24 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      description: {
+      content: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allow: false,
       },
-      goalAmount: {
+      fundsUtilized: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        field: "goal_amount",
-      },
-      raisedAmount: {
-        type: DataTypes.INTEGER,
-        defaultValue: 0,
-        allowNull: false,
-        field: "raised_amount",
+        field: "funds_utilized",
       },
     },
     {
       sequelize,
-      modelName: "Project",
-      tableName: "projects",
+      modelName: "ImpactReport",
+      tableName: "impact_reports",
       freezeTableName: true,
       timestamps: true,
       underscored: true,
     },
   );
-  return Project;
+  return ImpactReport;
 };
