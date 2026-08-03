@@ -7,6 +7,7 @@ const {
   Charity,
   sequelize,
 } = require("../models/index");
+const { sendDonationConfirmation } = require("./email.service");
 
 // 1. create order
 const createOrder = async function (userId, projectId, amount) {
@@ -65,7 +66,13 @@ const fulfillDonation = async function (donationId, paymentId) {
   const t = await sequelize.transaction();
 
   try {
-    const donation = await Donation.findByPk(donationId, { transaction: t });
+    const donation = await Donation.findByPk(donationId, {
+      transaction: t,
+      include: [
+        { model: Project, as: "project" },
+        { model: User, as: "donor" },
+      ],
+    });
 
     if (!donation || donation.status === "Success") {
       await t.rollback();
@@ -84,7 +91,9 @@ const fulfillDonation = async function (donationId, paymentId) {
     );
 
     // then increment the project's raised amount
-
+    // let increment = 0;
+    // increment++;
+    // console.log("donation service, increment=", increment);
     await Project.increment("raisedAmount", {
       by: donation.donationAmount,
       where: { id: donation.projectId },
@@ -92,6 +101,13 @@ const fulfillDonation = async function (donationId, paymentId) {
     });
 
     await t.commit();
+
+    sendDonationConfirmation(
+      "gthomson933@gmail.com",
+      donation.donor.name,
+      donation.project.title,
+      donation.donationAmount,
+    );
     return {
       message: `Donation ${donationId} completed successfully`,
     };
