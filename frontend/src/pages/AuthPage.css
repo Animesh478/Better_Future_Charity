@@ -1,0 +1,442 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+html {
+  font-size: 62.5%;
+}
+
+.auth-root {
+  --bg-deep: #12291f;
+  --bg-deep-2: #0d201810;
+  --paper: #f6f1e4;
+  --paper-line: #cdc4a8;
+  --ink: #1d2b22;
+  --ink-soft: #4c5850;
+  --gold: #c89b3c;
+  --gold-dark: #a97f2b;
+  --rust: #a8452b;
+  --error: #a8452b;
+  --success: #3f6b4e;
+
+  min-height: 100vh;
+  width: 100%;
+  background: var(--bg-deep);
+  color: var(--ink);
+  font-family: "Inter", sans-serif;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.auth-shell {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+@media (max-width: 900px) {
+  .auth-shell {
+    grid-template-columns: 1fr;
+  }
+  .auth-side {
+    display: none;
+  }
+}
+
+/* ---------- Left ledger panel ---------- */
+
+.auth-side {
+  padding: 56px 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-side::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(
+      circle at 18% 12%,
+      rgba(200, 155, 60, 0.14),
+      transparent 45%
+    ),
+    radial-gradient(circle at 85% 90%, rgba(200, 155, 60, 0.1), transparent 30%);
+  pointer-events: none;
+}
+
+.auth-mark {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(246, 241, 228, 0.55);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth-mark .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.auth-headline {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 42px;
+  line-height: 1.12;
+  color: var(--paper);
+  margin: 32px 0 14px;
+  max-width: 9.5em;
+}
+
+.auth-headline em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gold);
+}
+
+.auth-subcopy {
+  font-size: 15px;
+  color: rgba(246, 241, 228, 0.7);
+  max-width: 34ch;
+  line-height: 1.6;
+}
+
+/* .auth-ledger {
+  margin-top: 44px;
+  border-top: 1px solid rgba(246, 241, 228, 0.18);
+  padding-top: 18px;
+} */
+
+/* .auth-ledger-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 9px 0;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 13px;
+  color: rgba(246, 241, 228, 0.85);
+  border-bottom: 1px dotted rgba(246, 241, 228, 0.22);
+} */
+
+/* .auth-ledger-row span:first-child {
+  color: rgba(246, 241, 228, 0.55);
+}
+
+.auth-ledger-row span:last-child {
+  color: var(--gold);
+  font-weight: 500;
+} */
+
+/* .auth-footnote {
+  font-size: 12px;
+  color: rgba(246, 241, 228, 0.4);
+  margin-top: 40px;
+} */
+
+/* ---------- Right receipt card ---------- */
+
+.auth-card-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 32px;
+  background: var(--bg-deep);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--paper);
+  position: relative;
+  padding-top: 18px;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.45);
+}
+
+/* torn paper edge at the top of the card */
+.auth-card::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0; /* left:0, right:0 forces the pseudo element to stretch across the entire width of the card*/
+  height: 14px;
+  background-image:
+    linear-gradient(135deg, var(--bg-deep) 50%, transparent 50%),
+    linear-gradient(45deg, transparent 50%, var(--bg-deep) 50%);
+  background-size: 16px 16px;
+  background-position:
+    top left,
+    top left;
+  background-repeat: repeat-x;
+}
+
+.auth-card-inner {
+  padding: 30px 34px 34px;
+}
+
+.auth-receipt-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+
+/* tab strip styled like ticket stubs */
+.auth-tabs {
+  display: flex;
+  position: relative;
+  margin-bottom: 22px;
+}
+
+.auth-tab {
+  flex: 1;
+  text-align: center;
+  padding: 10px 0 12px;
+  font-family: "Fraunces", serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.auth-tab.active {
+  color: var(--ink);
+}
+
+.auth-tab.active::after {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: 0;
+  height: 2px;
+  background: var(--gold);
+}
+
+/* perforation divider with punched notches */
+.auth-perforation {
+  position: relative;
+  height: 1px;
+  border-top: 1.5px dashed var(--paper-line);
+  margin-bottom: 22px;
+}
+
+.auth-perforation::before,
+.auth-perforation::after {
+  content: "";
+  position: absolute;
+  top: -6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--bg-deep);
+}
+
+.auth-perforation::before {
+  left: -34px;
+}
+.auth-perforation::after {
+  right: -34px;
+}
+
+.auth-field {
+  margin-bottom: 18px;
+}
+
+.auth-label {
+  display: block;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 7px;
+}
+
+.auth-input-row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1.5px solid var(--paper-line);
+  transition: border-color 0.15s ease;
+}
+
+.auth-input-row:focus-within {
+  border-color: var(--gold-dark);
+}
+
+.auth-input-row input,
+.auth-input-row select {
+  flex: 1;
+  border: none;
+  background: none;
+  outline: none;
+  font-family: "Inter", sans-serif;
+  font-size: 14.5px;
+  color: var(--ink);
+  padding: 8px 2px;
+}
+
+.auth-input-row button.toggle-visibility {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 4px;
+}
+
+.auth-error-text {
+  font-size: 12px;
+  color: var(--error);
+  margin-top: 6px;
+}
+
+.auth-role-toggle {
+  display: flex;
+  border: 1.5px solid var(--paper-line);
+  margin-bottom: 20px;
+}
+
+.auth-role-toggle button {
+  flex: 1;
+  padding: 9px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  border-right: 1.5px solid var(--paper-line);
+}
+
+.auth-role-toggle button:last-child {
+  border-right: none;
+}
+
+.auth-role-toggle button.active {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.auth-checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin-bottom: 22px;
+  line-height: 1.5;
+}
+
+.auth-checkbox-row input {
+  margin-top: 2px;
+}
+
+.auth-submit {
+  width: 100%;
+  padding: 13px 0;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 15.5px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.15s ease;
+}
+
+.auth-submit:hover:not(:disabled) {
+  background: #0c1a13;
+}
+
+.auth-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-banner {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  padding: 10px 12px;
+  margin-bottom: 18px;
+  border: 1px solid currentColor;
+}
+
+.auth-banner.error {
+  color: var(--error);
+}
+.auth-banner.success {
+  color: var(--success);
+}
+
+.auth-switch-line {
+  text-align: center;
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-top: 20px;
+}
+
+.auth-switch-line button {
+  background: none;
+  border: none;
+  color: var(--gold-dark);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* stamp that appears briefly on success */
+.auth-stamp {
+  position: absolute;
+  top: 26px;
+  right: 30px;
+  width: 62px;
+  height: 62px;
+  border: 2px solid var(--rust);
+  border-radius: 50%;
+  color: var(--rust);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  transform: rotate(-14deg) scale(0.7);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.35s ease,
+    opacity 0.35s ease;
+}
+
+.auth-stamp.show {
+  opacity: 0.85;
+  transform: rotate(-14deg) scale(1);
+}
