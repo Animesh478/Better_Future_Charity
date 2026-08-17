@@ -1,0 +1,246 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+.browse-root {
+  --bg-deep: #12291f;
+  --paper: #f6f1e4;
+  --paper-line: #cdc4a8;
+  --ink: #1d2b22;
+  --ink-soft: #4c5850;
+  --gold: #c89b3c;
+  --gold-dark: #a97f2b;
+  --success: #3f6b4e;
+
+  min-height: 100vh;
+  background: var(--paper);
+  font-family: "Inter", sans-serif;
+  color: var(--ink);
+}
+
+/* ---------- Hero ---------- */
+
+.browse-hero {
+  background: var(--bg-deep);
+  padding: 48px 40px 64px;
+  text-align: center;
+}
+
+.browse-hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(246, 241, 228, 0.65);
+  margin-bottom: 18px;
+}
+
+.browse-hero-tag .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.browse-hero h1 {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 38px;
+  color: var(--paper);
+  margin: 0 0 14px;
+}
+
+.browse-hero p {
+  font-size: 15px;
+  color: rgba(246, 241, 228, 0.72);
+  max-width: 46ch;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ---------- Controls ---------- */
+
+.browse-controls {
+  max-width: 1100px;
+  margin: -28px auto 0;
+  padding: 0 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.browse-search-row input {
+  width: 100%;
+  padding: 16px 20px;
+  background: var(--paper);
+  border: 1px solid var(--paper-line);
+  box-shadow: 0 16px 30px -18px rgba(0, 0, 0, 0.4);
+  font-family: "Inter", sans-serif;
+  font-size: 15px;
+  color: var(--ink);
+  outline: none;
+}
+
+.browse-search-row input:focus {
+  border-color: var(--gold-dark);
+}
+
+.browse-categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.browse-pill {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  padding: 7px 14px;
+  background: transparent;
+  border: 1px solid var(--paper-line);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.browse-pill.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+/* ---------- Grid ---------- */
+
+.browse-grid-section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 36px 40px 64px;
+}
+
+.browse-status {
+  text-align: center;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 13px;
+  color: var(--ink-soft);
+  padding: 60px 0;
+}
+
+.browse-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+/* ---------- Card ---------- */
+
+.gwl-card {
+  background: #fffdf8;
+  border: 1px solid var(--paper-line);
+  display: flex;
+  flex-direction: column;
+}
+
+.gwl-card-media {
+  position: relative;
+  height: 130px;
+  background: linear-gradient(135deg, #1b3a2c, #12291f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gwl-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gwl-card-media-fallback {
+  font-family: "Fraunces", serif;
+  font-size: 40px;
+  color: rgba(246, 241, 228, 0.5);
+}
+
+.gwl-card-verified {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: var(--gold);
+  color: var(--bg-deep);
+  padding: 3px 8px;
+}
+
+.gwl-card-body {
+  padding: 18px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.gwl-card-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+
+.gwl-card-title {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 18px;
+  margin: 0 0 8px;
+}
+
+.gwl-card-mission {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  margin: 0 0 16px;
+  flex: 1;
+}
+
+.gwl-card-progress-track {
+  height: 6px;
+  background: var(--paper-line);
+  position: relative;
+  overflow: hidden;
+}
+
+.gwl-card-progress-fill {
+  height: 100%;
+  background: var(--success);
+}
+
+.gwl-card-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10.5px;
+  color: var(--ink-soft);
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+.gwl-card-donate {
+  width: 100%;
+  padding: 10px 0;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+}
+
+.gwl-card-donate:hover {
+  background: #0c1a13;
+}

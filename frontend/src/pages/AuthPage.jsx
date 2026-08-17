@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./AuthPage.css";
 import { loginUser, signupUser } from "../services/authApi";
+import { useSearchParams } from "react-router-dom";
 
 const today = new Date().toLocaleDateString("en-IN", {
   day: "2-digit",
@@ -20,11 +21,15 @@ function Field({ label, error, children }) {
 }
 
 export default function AuthPage({ onAuthSuccess }) {
-  const [mode, setMode] = useState("login"); // 'login' | 'signup'
+  const [searchParams, setSearchParams] = useSearchParams();
+  // const [mode, setMode] = useState("login"); // 'login' | 'signup'
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [banner, setBanner] = useState(null); // { type: 'error' | 'success', text }
   const [justSucceeded, setJustSucceeded] = useState(false);
+
+  const isSignup = searchParams.get("mode") === "signup";
+  const mode = isSignup ? "signup" : "login";
 
   const [form, setForm] = useState({
     name: "",
@@ -41,7 +46,8 @@ export default function AuthPage({ onAuthSuccess }) {
   }
 
   function switchMode(next) {
-    setMode(next);
+    // setMode(next);
+    setSearchParams({ mode: next });
     setBanner(null);
     setFieldErrors({});
   }
@@ -172,25 +178,6 @@ export default function AuthPage({ onAuthSuccess }) {
               )}
 
               <form onSubmit={handleSubmit} noValidate>
-                {/* {mode === "signup" && (
-                  <div className="auth-role-toggle">
-                    <button
-                      type="button"
-                      className={role === "donor" ? "active" : ""}
-                      onClick={() => setRole("donor")}
-                    >
-                      Donor
-                    </button>
-                    <button
-                      type="button"
-                      className={role === "charity" ? "active" : ""}
-                      onClick={() => setRole("charity")}
-                    >
-                      Charity Partner
-                    </button>
-                  </div>
-                )} */}
-
                 {mode === "signup" && (
                   <Field label="Full name" error={fieldErrors.name}>
                     <input

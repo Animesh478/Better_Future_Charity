@@ -112,38 +112,6 @@ html {
   line-height: 1.6;
 }
 
-/* .auth-ledger {
-  margin-top: 44px;
-  border-top: 1px solid rgba(246, 241, 228, 0.18);
-  padding-top: 18px;
-} */
-
-/* .auth-ledger-row {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding: 9px 0;
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 13px;
-  color: rgba(246, 241, 228, 0.85);
-  border-bottom: 1px dotted rgba(246, 241, 228, 0.22);
-} */
-
-/* .auth-ledger-row span:first-child {
-  color: rgba(246, 241, 228, 0.55);
-}
-
-.auth-ledger-row span:last-child {
-  color: var(--gold);
-  font-weight: 500;
-} */
-
-/* .auth-footnote {
-  font-size: 12px;
-  color: rgba(246, 241, 228, 0.4);
-  margin-top: 40px;
-} */
-
 /* ---------- Right receipt card ---------- */
 
 .auth-card-wrap {
@@ -312,7 +280,7 @@ html {
   margin-top: 6px;
 }
 
-.auth-role-toggle {
+/* .auth-role-toggle {
   display: flex;
   border: 1.5px solid var(--paper-line);
   margin-bottom: 20px;
@@ -338,7 +306,7 @@ html {
 .auth-role-toggle button.active {
   background: var(--ink);
   color: var(--paper);
-}
+} */
 
 .auth-checkbox-row {
   display: flex;
