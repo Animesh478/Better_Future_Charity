@@ -15,3 +15,13 @@ export const fetchCharities = async function ({
     console.error(error);
   }
 };
+
+export const fetchCharityWithId = async function (charityId) {
+  try {
+    const result = await axiosClient.get(`/public/charity/${charityId}`);
+    console.log("fetch charity=", result);
+    return result.data.data;
+  } catch (error) {
+    console.error(error);
+  }
+};

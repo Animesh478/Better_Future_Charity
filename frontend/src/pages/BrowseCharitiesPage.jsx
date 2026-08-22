@@ -45,7 +45,7 @@ export default function BrowseCharitiesPage() {
   function handleViewCharity(charity) {
     // Viewing a charity's projects is public; the login gate now lives on the
     // per-project "Donate" button inside CharityDetailPage.
-    navigate(`/charities/${charity.id}`);
+    navigate(`/charity/${charity.id}`);
   }
 
   const { charities, totalPages, totalItems } = result;

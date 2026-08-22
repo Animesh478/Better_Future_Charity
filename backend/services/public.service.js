@@ -52,6 +52,7 @@ const fetchCharityFromDb = async function (charityId) {
           "description",
           "raisedAmount",
           "goalAmount",
+          "status",
         ],
       },
     ],

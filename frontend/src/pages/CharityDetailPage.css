@@ -1,0 +1,189 @@
+.detail-root {
+  --bg-deep: #12291f;
+  --paper: #f6f1e4;
+  --paper-line: #cdc4a8;
+  --ink: #1d2b22;
+  --ink-soft: #4c5850;
+  --gold: #c89b3c;
+  --gold-dark: #a97f2b;
+  --success: #3f6b4e;
+
+  min-height: 100vh;
+  background: var(--paper);
+  font-family: "Inter", sans-serif;
+  color: var(--ink);
+}
+
+.detail-status {
+  text-align: center;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 13px;
+  color: var(--ink-soft);
+  padding: 60px 0;
+}
+
+.detail-status.error {
+  color: #a8452b;
+}
+
+.detail-hero {
+  background: var(--bg-deep);
+  padding: 40px;
+  color: var(--paper);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.detail-hero div {
+  display: flex;
+  gap: 2rem;
+}
+
+.detail-back {
+  display: inline-block;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  color: rgba(246, 241, 228, 0.65);
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+
+.detail-back:hover {
+  color: var(--gold);
+}
+
+.detail-verified {
+  display: inline-block;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background: var(--gold);
+  color: var(--bg-deep);
+  padding: 4px 10px;
+  margin-bottom: 14px;
+}
+
+.detail-hero h1 {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 32px;
+  margin: 0 0 12px;
+}
+
+.detail-hero p {
+  max-width: 70ch;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: rgba(246, 241, 228, 0.78);
+}
+
+.detail-projects {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.detail-projects h2 {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 22px;
+  margin: 0 0 24px;
+}
+
+.detail-project-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.detail-project-card {
+  background: #fffdf8;
+  border: 1px solid var(--paper-line);
+  padding: 20px 22px 22px;
+}
+
+.detail-project-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.detail-project-top h3 {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 17px;
+  margin: 0;
+}
+
+.detail-project-status {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  white-space: nowrap;
+}
+
+.detail-project-status.active {
+  background: rgba(63, 107, 78, 0.15);
+  color: var(--success);
+}
+
+.detail-project-status.completed {
+  background: rgba(200, 155, 60, 0.18);
+  color: var(--gold-dark);
+}
+
+.detail-project-card p {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.55;
+  margin: 0 0 16px;
+}
+
+.detail-project-progress-track {
+  height: 6px;
+  background: var(--paper-line);
+  overflow: hidden;
+}
+
+.detail-project-progress-fill {
+  height: 100%;
+  background: var(--success);
+}
+
+.detail-project-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10.5px;
+  color: var(--ink-soft);
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+.detail-project-donate {
+  width: 100%;
+  padding: 10px 0;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 13.5px;
+  cursor: pointer;
+}
+
+.detail-project-donate:hover:not(:disabled) {
+  background: #0c1a13;
+}
+
+.detail-project-donate:disabled {
+  background: var(--paper-line);
+  color: var(--ink-soft);
+  cursor: not-allowed;
+}

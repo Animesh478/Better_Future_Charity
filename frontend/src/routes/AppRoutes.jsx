@@ -3,6 +3,7 @@ import BrowseCharitiesPage from "../pages/BrowseCharitiesPage";
 import LoginSignupPage from "../pages/LoginSignupPage";
 import ProtectedRoute from "../components/ProtectedRoute";
 import NotFoundPage from "../pages/NotFoundPage";
+import CharityDetailPage from "../pages/CharityDetailPage";
 
 const router = createBrowserRouter([
   // --- Public routes : anyone can see these, even without creating an account ---
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <LoginSignupPage />,
+  },
+  {
+    path: `/charity/:charityId`,
+    element: <CharityDetailPage />,
   },
 
   // --- Protected Routes ---
