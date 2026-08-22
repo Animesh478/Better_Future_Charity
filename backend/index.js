@@ -1,5 +1,6 @@
 const express = require("express");
 require("dotenv").config();
+const cors = require("cors");
 
 const authRouter = require("./routes/auth.routes");
 const userRouter = require("./routes/user.routes");
@@ -17,6 +18,8 @@ const { handleWebhook } = require("./controllers/donation.controller");
 
 const PORT = process.env.PORT;
 const app = express();
+
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
 app.post(
   "/api/donations/webhook",

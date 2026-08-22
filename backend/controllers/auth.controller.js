@@ -31,7 +31,25 @@ const login = async function (req, res) {
   }
 };
 
+const logout = function (req, res) {
+  try {
+    res.clearCookie("access_token", {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+
+    res.status(200).json({ message: "Logout successful" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Logout failed" });
+  }
+};
+
 module.exports = {
   signup,
   login,
+  logout,
 };
