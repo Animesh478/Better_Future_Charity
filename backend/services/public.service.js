@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { Charity } = require("../models/index");
+const { Charity, Project } = require("../models/index");
 
 const fetchCharitiesFromDb = async function (page = 1, limit = 10, search) {
   const offset = (page - 1) * limit;
@@ -36,6 +36,34 @@ const fetchCharitiesFromDb = async function (page = 1, limit = 10, search) {
   };
 };
 
+const fetchCharityFromDb = async function (charityId) {
+  const charity = await Charity.findOne({
+    where: {
+      id: charityId,
+      status: "Approved",
+    },
+    include: [
+      {
+        model: Project,
+        as: "projects",
+        attributes: [
+          "id",
+          "title",
+          "description",
+          "raisedAmount",
+          "goalAmount",
+        ],
+      },
+    ],
+  });
+
+  if (!charity) {
+    return { error: "NOT_FOUND", message: "Charity not found or not approved" };
+  }
+  return { charity };
+};
+
 module.exports = {
   fetchCharitiesFromDb,
+  fetchCharityFromDb,
 };
