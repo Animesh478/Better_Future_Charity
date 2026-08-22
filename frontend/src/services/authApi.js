@@ -1,49 +1,24 @@
-// authApi.js
-// Thin wrapper around the Express + Sequelize auth endpoints.
-// Adjust API_BASE to match how your app exposes env vars (Vite: import.meta.env.VITE_API_URL,
-// Create React App: process.env.REACT_APP_API_URL).
+import axiosClient from "./axiosClient";
 
-const API_BASE =
-  (typeof import.meta !== "undefined" &&
-    import.meta.env &&
-    import.meta.env.VITE_API_URL) ||
-  "http://localhost:8000/api";
+export async function signupUser(payload) {
+  const result = await axiosClient.post("/auth/signup", payload);
+  return result;
+}
 
-async function request(path, payload) {
-  const res = await fetch(`${API_BASE}${path}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include", // send/receive httpOnly cookie if you issue the JWT that way
-    body: JSON.stringify(payload),
-  });
+export async function loginUser(payload) {
+  const result = await axiosClient.post("/auth/login", payload);
+  return result;
+}
 
-  let data = null;
-  try {
-    data = await res.json();
-  } catch {
-    // no JSON body
-  }
+// clears the http only cookie on the server side
+export async function logoutUser() {
+  await axiosClient.post("/auth/logout");
+}
 
-  if (!res.ok) {
-    const message =
-      (data && (data.message || data.error)) ||
-      "Something went wrong. Please try again.";
-    throw new Error(message);
-  }
-
+// GET /api/auth/me -> { user } if the cookie is present and valid, otherwise 401.
+// Called once on app load to restore the session, since there's no token in localStorage
+// to read anymore — the cookie is the only source of truth.
+export async function fetchCurrentUser() {
+  const { data } = await axiosClient.get("/user/profile");
   return data;
-}
-
-// Expected backend contract (adjust to match your routes):
-// POST /api/auth/signup { name, email, password, role: 'donor' | 'charity', orgName? }
-//   -> 201 { user: { id, name, email, role }, token }
-// POST /api/auth/login  { email, password }
-//   -> 200 { user: { id, name, email, role }, token }
-
-export function signupUser(payload) {
-  return request("/auth/signup", payload);
-}
-
-export function loginUser(payload) {
-  return request("/auth/login", payload);
 }

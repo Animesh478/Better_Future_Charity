@@ -20,9 +20,8 @@ function Field({ label, error, children }) {
   );
 }
 
-export default function AuthPage({ onAuthSuccess }) {
+export default function AuthPage({ onLoginSuccess }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  // const [mode, setMode] = useState("login"); // 'login' | 'signup'
   const [showPassword, setShowPassword] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [banner, setBanner] = useState(null); // { type: 'error' | 'success', text }
@@ -34,6 +33,7 @@ export default function AuthPage({ onAuthSuccess }) {
   const [form, setForm] = useState({
     name: "",
     email: "",
+    phoneNumber: "",
     password: "",
     confirmPassword: "",
     agree: false,
@@ -46,7 +46,6 @@ export default function AuthPage({ onAuthSuccess }) {
   }
 
   function switchMode(next) {
-    // setMode(next);
     setSearchParams({ mode: next });
     setBanner(null);
     setFieldErrors({});
@@ -55,8 +54,11 @@ export default function AuthPage({ onAuthSuccess }) {
   // this is executed when submitting the form
   function validate() {
     const errs = {};
-    if (mode === "signup") {
+    if (mode === "signup" && form.name === "") {
       errs.name = "Please enter your name.";
+    }
+    if (mode === "signup" && form.phoneNumber === "") {
+      errs.contact = "Please enter your contact.";
     }
     if (!form.email.trim()) {
       errs.email = "Email is required.";
@@ -86,7 +88,7 @@ export default function AuthPage({ onAuthSuccess }) {
     setSubmitting(true);
     try {
       if (mode === "login") {
-        const data = await loginUser({
+        await loginUser({
           email: form.email,
           password: form.password,
         });
@@ -95,20 +97,22 @@ export default function AuthPage({ onAuthSuccess }) {
           type: "success",
           text: "Signed in. Redirecting to your dashboard…",
         });
-        onAuthSuccess?.(data);
+        onLoginSuccess(); // after successful login, make an api call to fetch the current user details and to update the auth context
       } else {
         const payload = {
           name: form.name,
           email: form.email,
           password: form.password,
+          phoneNumber: form.phoneNumber,
         };
-        const data = await signupUser(payload);
+        await signupUser(payload);
         setJustSucceeded(true);
         setBanner({
           type: "success",
           text: "Account created. Welcome aboard!",
         });
-        onAuthSuccess?.(data);
+        // onAuthSuccess?.(data);
+        switchMode("login"); // upon successful sign up, redirect the user to the login page
       }
     } catch (err) {
       setBanner({ type: "error", text: err.message });
@@ -186,6 +190,18 @@ export default function AuthPage({ onAuthSuccess }) {
                       onChange={(e) => update("name", e.target.value)}
                       placeholder="As it should appear on receipts"
                       autoComplete="name"
+                    />
+                  </Field>
+                )}
+
+                {mode === "signup" && (
+                  <Field label="Phone Number" error={fieldErrors.contact}>
+                    <input
+                      type="text"
+                      value={form.phoneNumber}
+                      onChange={(e) => update("phoneNumber", e.target.value)}
+                      placeholder="As it should appear on receipts"
+                      autoComplete="phoneNumber"
                     />
                   </Field>
                 )}

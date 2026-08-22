@@ -9,7 +9,7 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   function handleLogout() {
-    // makes an api call to clear the cookie containing the jwt token when the user logs out
+    // makes an api call to clear the cookie containing the jwt token  when the user logs out
     const logout = async function () {
       try {
         // make a req to the backend to clear the HttpOnly cookie

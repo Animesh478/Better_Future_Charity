@@ -1,27 +1,27 @@
-// import { useEffect, useState, useCallback } from "react";
-// import { useNavigate } from "react-router-dom";
-// import { useAuth } from "../hooks/useAuth";
+import { useEffect, useState, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 // import { fetchCharities, getCategories } from "../services/charityApi";
 import Navbar from "../components/Navbar";
 // import CharityCard from "../components/charity/CharityCard";
 import "./BrowseCharitiesPage.css";
+import { useAuth } from "../context/AuthContext";
 
 export default function BrowseCharitiesPage() {
-  // const { isAuthenticated } = useAuth();
-  // const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
 
-  // // const categories = getCategories();
+  // const categories = getCategories(); // fetch all the categories
   // const [search, setSearch] = useState("");
   // const [activeCategory, setActiveCategory] = useState("All");
-  // const [charities, setCharities] = useState([]);
-  // const [loading, setLoading] = useState(true);
+  const [charities, setCharities] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // const loadCharities = useCallback(async () => {
-  //   setLoading(true);
-  //   const data = await fetchCharities({ search, category: activeCategory });
-  //   setCharities(data);
-  //   setLoading(false);
-  // }, [search, activeCategory]);
+  const loadCharities = useCallback(async () => {
+    setLoading(true);
+    const data = await fetchCharities({ search, category: activeCategory });
+    setCharities(data);
+    setLoading(false);
+  }, [search, activeCategory]);
 
   // useEffect(() => {
   //   const timeout = setTimeout(loadCharities, 250); // light debounce for search typing

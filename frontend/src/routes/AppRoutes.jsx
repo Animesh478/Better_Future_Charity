@@ -5,7 +5,8 @@ import BrowseCharitiesPage from "../pages/BrowseCharitiesPage";
 // import DonationHistoryPage from "../pages/DonationHistoryPage";
 // import NotFoundPage from "../pages/NotFoundPage";
 // import ProtectedRoute from "../components/common/ProtectedRoute";
-import AuthPage from "../pages/AuthPage";
+// import AuthPage from "../pages/AuthPage";
+import LoginSignupPage from "../pages/LoginSignupPage";
 
 const router = createBrowserRouter([
   {
@@ -14,7 +15,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <AuthPage />,
+    element: <LoginSignupPage />,
   },
 ]);
 
