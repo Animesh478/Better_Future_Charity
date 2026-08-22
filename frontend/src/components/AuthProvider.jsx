@@ -5,7 +5,6 @@ import { fetchCurrentUser, logoutUser } from "../services/authApi";
 export const AuthProvider = function ({ children }) {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const isAuthenticated = !!user;
 

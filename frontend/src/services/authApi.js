@@ -20,5 +20,5 @@ export async function logoutUser() {
 // to read anymore — the cookie is the only source of truth.
 export async function fetchCurrentUser() {
   const { data } = await axiosClient.get("/user/profile");
-  return data;
+  return data.data; // {id, name, email, phoneNumber, role}
 }

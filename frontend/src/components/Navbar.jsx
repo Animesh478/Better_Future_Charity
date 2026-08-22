@@ -3,32 +3,13 @@ import { useAuth } from "../context/AuthContext";
 import "./Navbar.css";
 
 export default function Navbar() {
-  console.log("inside navbar");
-  console.log("useAuth=", useAuth());
-  const { user, setUser, isAuthenticated } = useAuth();
+  const { user, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
 
   function handleLogout() {
-    // makes an api call to clear the cookie containing the jwt token  when the user logs out
-    const logout = async function () {
-      try {
-        // make a req to the backend to clear the HttpOnly cookie
-        // await fetch("http://localhost:8000/api/user/logout", {
-        //   method: "POST",
-        // });
-        console.log("logout initiated");
-
-        // update the state
-        setUser(null);
-
-        // redirect the user to the login screen
-        navigate("/login");
-      } catch (error) {
-        console.error("Logout failed", error);
-      }
-    };
     logout();
-    navigate("/");
+    // redirect the user to the login screen
+    navigate("/login");
   }
 
   return (
