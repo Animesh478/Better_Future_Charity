@@ -4,6 +4,8 @@ import LoginSignupPage from "../pages/LoginSignupPage";
 import ProtectedRoute from "../components/ProtectedRoute";
 import NotFoundPage from "../pages/NotFoundPage";
 import CharityDetailPage from "../pages/CharityDetailPage";
+import DonationPage from "../pages/DonationPage";
+import DonationStatusPage from "../pages/DonationStatusPage";
 
 const router = createBrowserRouter([
   // --- Public routes : anyone can see these, even without creating an account ---
@@ -27,7 +29,8 @@ const router = createBrowserRouter([
     element: <ProtectedRoute />,
     // all the protected routes needs to be inside the children array
     children: [
-      // {path:'', element: }
+      { path: "/donate/:projectId", element: <DonationPage /> },
+      { path: "/donations/status", element: <DonationStatusPage /> },
     ],
   },
   {

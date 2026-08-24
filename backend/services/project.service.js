@@ -85,7 +85,32 @@ const updateProjectInDb = async function (userId, projectId, updateData) {
   };
 };
 
+const fetchProjectDetailsFromDb = async function (projectId) {
+  const project = await Project.findOne({
+    where: {
+      id: projectId,
+    },
+    include: [
+      {
+        model: Charity,
+        as: "charity",
+        attributes: ["id", "name"],
+      },
+    ],
+  });
+
+  if (!project) {
+    return {
+      error: "NOT_FOUND",
+      message: "The requested project is not found",
+    };
+  }
+
+  return { project };
+};
+
 module.exports = {
   createProjectInDb,
   updateProjectInDb,
+  fetchProjectDetailsFromDb,
 };

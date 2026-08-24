@@ -21,6 +21,7 @@ const app = express();
 
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 
+// Cashfree sends a POST req to this route when a user completes a payment
 app.post(
   "/api/donations/webhook",
   express.raw({ type: "application/json" }),

@@ -6,10 +6,12 @@ const {
   createOrder,
   fetchUserDonationHistory,
   generateDonationReceipt,
+  fetchDonationStatusFromDb,
 } = require("../services/donation.service");
 
 const makeDonation = async function (req, res) {
   const userId = req.user.id;
+  // console.log("inside donation controller, user id=", userId);
   const { projectId, amount } = req.body;
 
   try {
@@ -64,18 +66,18 @@ const handleWebhook = async function (req, res) {
   }
 };
 
-const handleReturn = function (req, res) {
-  const orderId = req.query.order_id;
-  res.send(`
-    <html>
-      <body style="font-family: sans-serif; padding: 2rem; text-align: center;">
-        <h2>Payment Redirect Successful!</h2>
-        <p>Order ID: <strong>${orderId}</strong></p>
-        <p>Check your terminal to see if the Webhook fired!</p>
-      </body>
-    </html>
-  `);
-};
+// const handleReturn = function (req, res) {
+//   const orderId = req.query.order_id;
+//   res.send(`
+//     <html>
+//       <body style="font-family: sans-serif; padding: 2rem; text-align: center;">
+//         <h2>Payment Redirect Successful!</h2>
+//         <p>Order ID: <strong>${orderId}</strong></p>
+//         <p>Check your terminal to see if the Webhook fired!</p>
+//       </body>
+//     </html>
+//   `);
+// };
 
 const getDonationHistory = async function (req, res) {
   const userId = req.user.id;
@@ -128,10 +130,24 @@ const fetchDonationReceipt = async function (req, res) {
   }
 };
 
+const fetchDonationStatus = async function (req, res) {
+  const { donationId } = req.query;
+  try {
+    const result = await fetchDonationStatusFromDb(donationId);
+    if (result.error) {
+      return res.status(404).json({ success: false, message: result.message });
+    }
+    res.status(200).json({ success: true, data: result.data });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
 module.exports = {
   handleWebhook,
   makeDonation,
-  handleReturn,
   getDonationHistory,
   fetchDonationReceipt,
+  fetchDonationStatus,
 };

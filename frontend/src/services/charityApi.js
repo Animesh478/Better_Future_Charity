@@ -25,3 +25,12 @@ export const fetchCharityWithId = async function (charityId) {
     console.error(error);
   }
 };
+
+export const fetchProjectDetails = async function (projectId) {
+  try {
+    const result = await axiosClient.get(`project/fetchProject/${projectId}`);
+    console.log(result);
+  } catch (error) {
+    console.error(error);
+  }
+};

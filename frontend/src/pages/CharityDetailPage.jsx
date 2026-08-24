@@ -55,6 +55,7 @@ export default function CharityDetailPage() {
 
   function handleDonateClick(project) {
     const destination = `/donate/${project.id}`;
+    // if the user is not authenticated, he will be redirected to the login page
     if (!isAuthenticated) {
       navigate("/login", { state: { from: destination } });
       return;

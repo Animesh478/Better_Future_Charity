@@ -1,6 +1,7 @@
 const {
   createProjectInDb,
   updateProjectInDb,
+  fetchProjectDetailsFromDb,
 } = require("../services/project.service");
 
 const createProject = async function (req, res) {
@@ -57,7 +58,22 @@ const updateProject = async function (req, res) {
   }
 };
 
+const fetchProject = async function (req, res) {
+  const { projectId } = req.params;
+  try {
+    const result = await fetchProjectDetailsFromDb(projectId);
+    if (result.error) {
+      res.status(404).json({ success: false, message: result.message });
+    }
+    res.status(200).json({ success: true, data: result.project });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
 module.exports = {
   createProject,
   updateProject,
+  fetchProject,
 };

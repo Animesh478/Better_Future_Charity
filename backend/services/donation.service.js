@@ -35,7 +35,8 @@ const createOrder = async function (userId, projectId, amount) {
         customer_phone: user.phoneNumber || "9999999999", // Cashfree requires a valid phone string
       },
       order_meta: {
-        return_url: `${process.env.BACKEND_URL}/api/donations/verify?order_id=${donation.id}`,
+        // return_url: `${process.env.BACKEND_URL}/api/donations/verify?order_id=${donation.id}`,
+        return_url: `${process.env.FRONTEND_URL}/donations/status?donation_id=${donation.id}`,
         notify_url: `${process.env.CLOUDFLARE_URL}/api/donations/webhook`,
       },
     };
@@ -103,7 +104,7 @@ const fulfillDonation = async function (donationId, paymentId) {
     await t.commit();
 
     sendDonationConfirmation(
-      "gthomson933@gmail.com",
+      process.env.DONOR_EMAIL,
       donation.donor.name,
       donation.project.title,
       donation.donationAmount,
@@ -227,9 +228,27 @@ const generateDonationReceipt = async function (userId, donationId, res) {
   return { success: true };
 };
 
+const fetchDonationStatusFromDb = async function (donationId) {
+  const data = await Donation.findOne({
+    where: {
+      id: donationId,
+    },
+    attributes: ["status"],
+  });
+
+  if (!data) {
+    return {
+      error: "NOT_FOUND",
+      message: "Donation details not found. Must be a valid donation",
+    };
+  }
+  return { data };
+};
+
 module.exports = {
   createOrder,
   fulfillDonation,
   fetchUserDonationHistory,
   generateDonationReceipt,
+  fetchDonationStatusFromDb,
 };
