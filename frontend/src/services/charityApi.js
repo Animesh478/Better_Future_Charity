@@ -28,9 +28,26 @@ export const fetchCharityWithId = async function (charityId) {
 
 export const fetchProjectDetails = async function (projectId) {
   try {
-    const result = await axiosClient.get(`project/fetchProject/${projectId}`);
+    const result = await axiosClient.get(`/project/fetchProject/${projectId}`);
     console.log(result);
+    return result.data.data;
   } catch (error) {
     console.error(error);
   }
+};
+
+export const registerCharity = async function (payload) {
+  try {
+    const result = await axiosClient.post(`/charity/register`, payload);
+    console.log("register charity");
+    console.log(result);
+    return result.data.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const fetchMyCharity = async function () {
+  const result = await axiosClient.get(`/charity/me`);
+  return result.data.data;
 };

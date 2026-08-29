@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+.create-charity-root {
+  --bg-deep: #12291f;
+  --paper: #f6f1e4;
+  --paper-line: #cdc4a8;
+  --ink: #1d2b22;
+  --ink-soft: #4c5850;
+  --gold: #c89b3c;
+  --gold-dark: #a97f2b;
+  --error: #a8452b;
+
+  min-height: 100vh;
+  background: var(--bg-deep);
+  font-family: "Inter", sans-serif;
+  color: var(--ink);
+}
+
+.create-charity-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 56px 24px;
+}
+
+.create-charity-card {
+  width: 100%;
+  max-width: 520px;
+  background: var(--paper);
+  padding: 36px 38px 40px;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.45);
+}
+
+.create-charity-tag {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+
+.create-charity-card h1 {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 26px;
+  margin: 0 0 12px;
+  color: var(--ink-soft);
+}
+
+.create-charity-sub {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.create-charity-divider {
+  border-top: 1.5px dashed var(--paper-line);
+  margin: 24px 0;
+}
+
+.create-charity-banner {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  color: var(--error);
+  border: 1px solid var(--error);
+  padding: 10px 12px;
+  margin-bottom: 18px;
+}
+
+.cc-field {
+  margin-bottom: 18px;
+}
+
+.cc-field label {
+  display: block;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 7px;
+}
+
+.cc-field input,
+.cc-field textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1.5px solid var(--paper-line);
+  background: none;
+  outline: none;
+  font-family: "Inter", sans-serif;
+  font-size: 14.5px;
+  color: var(--ink);
+  padding: 8px 2px;
+  resize: vertical;
+}
+
+.cc-field input:focus,
+.cc-field textarea:focus {
+  border-color: var(--gold-dark);
+}
+
+.cc-error {
+  font-size: 12px;
+  color: var(--error);
+  margin-top: 6px;
+}
+
+.cc-submit {
+  width: 100%;
+  padding: 13px 0;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 15.5px;
+  cursor: pointer;
+}
+
+.cc-submit:hover:not(:disabled) {
+  background: #0c1a13;
+}
+
+.cc-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

@@ -6,6 +6,9 @@ import NotFoundPage from "../pages/NotFoundPage";
 import CharityDetailPage from "../pages/CharityDetailPage";
 import DonationPage from "../pages/DonationPage";
 import DonationStatusPage from "../pages/DonationStatusPage";
+import CharityDashboardPage from "../pages/CharityDashboardPage";
+import AdminDashboardPage from "../pages/AdminDashboardPage";
+import CreateCharityPage from "../pages/CreateCharityPage";
 
 const router = createBrowserRouter([
   // --- Public routes : anyone can see these, even without creating an account ---
@@ -31,6 +34,24 @@ const router = createBrowserRouter([
     children: [
       { path: "/donate/:projectId", element: <DonationPage /> },
       { path: "/donations/status", element: <DonationStatusPage /> },
+      { path: "/charity/register", element: <CreateCharityPage /> },
+      {
+        path: "/charity/dashboard",
+        element: <CharityDashboardPage />,
+      },
+    ],
+  },
+  // {
+  //   element: <ProtectedRoute allowedRoles={["Charity"]} />,
+  //   children: [],
+  // },
+  {
+    element: <ProtectedRoute allowedRoles={["Admin"]} />,
+    children: [
+      {
+        path: "/admin",
+        element: <AdminDashboardPage />,
+      },
     ],
   },
   {

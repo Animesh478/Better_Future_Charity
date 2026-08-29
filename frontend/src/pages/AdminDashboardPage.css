@@ -1,0 +1,266 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+.admin-root {
+  --bg-deep: #12291f;
+  --paper: #f6f1e4;
+  --paper-line: #cdc4a8;
+  --ink: #1d2b22;
+  --ink-soft: #4c5850;
+  --gold: #c89b3c;
+  --gold-dark: #a97f2b;
+  --success: #3f6b4e;
+  --error: #a8452b;
+
+  min-height: 100vh;
+  background: var(--paper);
+  font-family: "Inter", sans-serif;
+  color: var(--ink);
+}
+
+.admin-hero {
+  background: var(--bg-deep);
+  color: var(--paper);
+  padding: 40px;
+}
+
+.admin-hero-tag {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.admin-hero h1 {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 28px;
+  margin: 0 0 8px;
+}
+
+.admin-hero p {
+  font-size: 14px;
+  color: rgba(246, 241, 228, 0.75);
+}
+
+.admin-body {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px 40px 64px;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.admin-tabs button {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  padding: 9px 18px;
+  background: transparent;
+  border: 1px solid var(--paper-line);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.admin-tabs button.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.admin-search-row input {
+  width: 100%;
+  padding: 12px 16px;
+  background: #fffdf8;
+  border: 1px solid var(--paper-line);
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  color: var(--ink);
+  outline: none;
+  margin-bottom: 18px;
+}
+
+.admin-search-row input:focus {
+  border-color: var(--gold-dark);
+}
+
+.admin-banner {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  padding: 10px 12px;
+  margin-bottom: 16px;
+  border: 1px solid var(--error);
+  color: var(--error);
+}
+
+.admin-status {
+  text-align: center;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 13px;
+  color: var(--ink-soft);
+  padding: 40px 0;
+}
+
+.admin-table {
+  border: 1px solid var(--paper-line);
+  background: #fffdf8;
+}
+
+.admin-table-head,
+.admin-table-row {
+  display: grid;
+  gap: 12px;
+  padding: 12px 16px;
+  align-items: center;
+}
+
+.admin-table-head.charities,
+.admin-table-row.charities {
+  grid-template-columns: 1.4fr 1.2fr 110px 200px;
+}
+
+.admin-table-head.users,
+.admin-table-row.users {
+  grid-template-columns: 1fr 1.4fr 120px 180px;
+}
+
+.admin-table-head {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--paper-line);
+}
+
+.admin-table-row {
+  font-size: 13.5px;
+  border-bottom: 1px solid var(--paper-line);
+}
+
+.admin-table-row:last-child {
+  border-bottom: none;
+}
+
+.admin-row-title {
+  font-weight: 600;
+}
+
+.admin-row-sub {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+.admin-status-badge,
+.admin-role-badge {
+  display: inline-block;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+}
+
+.admin-status-badge.pending {
+  background: rgba(200, 155, 60, 0.2);
+  color: var(--gold-dark);
+}
+.admin-status-badge.approved {
+  background: rgba(63, 107, 78, 0.18);
+  color: var(--success);
+}
+.admin-status-badge.rejected,
+.admin-status-badge.suspended {
+  background: rgba(168, 69, 43, 0.18);
+  color: var(--error);
+}
+
+.admin-role-badge.donor {
+  background: rgba(76, 88, 80, 0.15);
+  color: var(--ink-soft);
+}
+.admin-role-badge.charity {
+  background: rgba(63, 107, 78, 0.18);
+  color: var(--success);
+}
+.admin-role-badge.admin {
+  background: rgba(200, 155, 60, 0.2);
+  color: var(--gold-dark);
+}
+
+.admin-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-btn-solid {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.admin-btn-solid:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.admin-row-actions select {
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  padding: 6px 8px;
+  border: 1px solid var(--paper-line);
+  background: #fffdf8;
+  color: var(--ink);
+}
+
+.admin-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 24px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.admin-pagination button {
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 7px 14px;
+  background: transparent;
+  border: 1px solid var(--paper-line);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.admin-pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (max-width: 700px) {
+  .admin-table-head {
+    display: none;
+  }
+  .admin-table-head.charities,
+  .admin-table-row.charities,
+  .admin-table-head.users,
+  .admin-table-row.users {
+    grid-template-columns: 1fr;
+  }
+}

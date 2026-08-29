@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { Charity, User } = require("../models/index");
+const { Charity, User, Project } = require("../models/index");
 
 const createCharityInDb = async function (userDetails, charityDetails) {
   const { name, description, registrationNumber } = charityDetails;
@@ -47,7 +47,38 @@ const updateCharityInDb = async function (userId, updateData) {
   return { charity };
 };
 
+const fetchMyCharityFromDb = async function (userId) {
+  const charity = await Charity.findOne({
+    where: {
+      userId,
+    },
+    include: [
+      {
+        model: Project,
+        as: "projects",
+        attributes: [
+          "id",
+          "title",
+          "description",
+          "goalAmount",
+          "raisedAmount",
+          "status",
+          "createdAt",
+        ],
+      },
+    ],
+  });
+  if (!charity) {
+    return {
+      error: "NOT_FOUND",
+      message: "Charity not found or you have not registered a charity yet",
+    };
+  }
+  return { charity };
+};
+
 module.exports = {
   createCharityInDb,
   updateCharityInDb,
+  fetchMyCharityFromDb,
 };

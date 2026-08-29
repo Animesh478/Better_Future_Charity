@@ -24,6 +24,13 @@ export default function Navbar() {
         <Link to="/">Browse Charities</Link>
         {/* show My Donations link if the user is authenticated */}
         {isAuthenticated && <Link to="/donations">My Donations</Link>}
+        {isAuthenticated &&
+          (user?.role === "Donor" || user?.role === "Charity") && (
+            <Link to="/charity/dashboard">My Charity</Link>
+          )}
+        {isAuthenticated && user?.role === "Admin" && (
+          <Link to="/admin">Admin</Link>
+        )}
       </nav>
 
       <div className="gwl-navbar-actions">
