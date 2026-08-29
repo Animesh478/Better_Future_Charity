@@ -22,3 +22,9 @@ export async function fetchCurrentUser() {
   const { data } = await axiosClient.get("/user/profile");
   return data.data; // {id, name, email, phoneNumber, role}
 }
+
+export async function updateUserProfile(payload) {
+  const result = await axiosClient.patch(`/user/update-profile`, payload);
+  console.log(result);
+  return result.data.data;
+}
