@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import { fetchMyCharity } from "../services/charityApi";
+import { fetchMyCharity, updateCharity } from "../services/charityApi";
 import { createProject } from "../services/projectApi";
 import {
   generateImpactReport,
@@ -15,6 +15,73 @@ function formatINR(amount) {
     currency: "INR",
     maximumFractionDigits: 0,
   }).format(amount);
+}
+
+function EditCharityDescription({ charity, onUpdated }) {
+  const [editing, setEditing] = useState(false);
+  const [description, setDescription] = useState(charity.description);
+  const [error, setError] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    setError(null);
+    if (!description.trim() || description.trim().length < 20) {
+      setError("Give at least a couple of sentences (20+ characters).");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const updated = await updateCharity({ description });
+      onUpdated(updated);
+      setEditing(false);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  if (!editing) {
+    return (
+      <>
+        <p>{charity.description}</p>
+        <button
+          className="cd-edit-charity-toggle"
+          onClick={() => setEditing(true)}
+        >
+          Edit description
+        </button>
+      </>
+    );
+  }
+
+  return (
+    <form className="cd-edit-charity-form" onSubmit={handleSubmit}>
+      <textarea
+        rows={3}
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
+      {error && <div className="cd-error">{error}</div>}
+      <div className="cd-new-project-actions">
+        <button
+          type="button"
+          className="cd-btn-ghost"
+          onClick={() => {
+            setDescription(charity.description);
+            setEditing(false);
+            setError(null);
+          }}
+        >
+          Cancel
+        </button>
+        <button type="submit" className="cd-btn-solid" disabled={submitting}>
+          {submitting ? "Saving…" : "Save"}
+        </button>
+      </div>
+    </form>
+  );
 }
 
 function NewProjectForm({ onCreated }) {
@@ -325,6 +392,10 @@ export default function CharityDashboardPage() {
     setCharity((c) => ({ ...c, projects: [project, ...(c.projects || [])] }));
   }
 
+  function handleCharityUpdated(updated) {
+    setCharity((c) => ({ ...c, description: updated.description }));
+  }
+
   if (loading) {
     return (
       <div className="cd-root">
@@ -360,7 +431,11 @@ export default function CharityDashboardPage() {
           {charity.status}
         </span>
         <h1>{charity.name}</h1>
-        <p>{charity.description}</p>
+        <EditCharityDescription
+          charity={charity}
+          onUpdated={handleCharityUpdated}
+        />
+        {/* <p>{charity.description}</p> */}
         <div className="cd-reg">Reg. No. {charity.registrationNumber}</div>
       </section>
 

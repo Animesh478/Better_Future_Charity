@@ -93,6 +93,65 @@
   margin: 0 0 12px;
 }
 
+.cd-edit-charity-toggle {
+  background: none;
+  border: none;
+  color: var(--gold);
+  font-family: "Inter", sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  margin-bottom: 14px;
+}
+
+.cd-edit-charity-form {
+  max-width: 60ch;
+  margin-bottom: 14px;
+}
+
+.cd-edit-charity-form textarea {
+  width: 100%;
+  background: rgba(246, 241, 228, 0.08);
+  border: 1px solid rgba(246, 241, 228, 0.3);
+  color: var(--paper);
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  padding: 10px 12px;
+  outline: none;
+  resize: vertical;
+}
+
+.cd-edit-charity-form textarea:focus {
+  border-color: var(--gold);
+}
+
+.cd-edit-charity-form .cd-error {
+  color: #e0876f;
+}
+
+.cd-edit-charity-form .cd-btn-ghost {
+  border-color: rgba(246, 241, 228, 0.35);
+  color: var(--paper);
+}
+
+.cd-edit-charity-form .cd-btn-ghost:hover {
+  border-color: var(--gold);
+}
+
+.cd-edit-charity-form .cd-btn-solid {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--bg-deep);
+}
+
+.cd-edit-charity-form .cd-btn-solid:hover:not(:disabled) {
+  background: var(--gold-dark);
+  border-color: var(--gold-dark);
+}
+
 .cd-reg {
   font-family: "IBM Plex Mono", monospace;
   font-size: 11.5px;

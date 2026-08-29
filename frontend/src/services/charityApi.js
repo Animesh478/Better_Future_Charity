@@ -51,3 +51,9 @@ export const fetchMyCharity = async function () {
   const result = await axiosClient.get(`/charity/me`);
   return result.data.data;
 };
+
+export const updateCharity = async function (payload) {
+  const result = await axiosClient.patch(`/charity/update`, payload);
+  console.log(result.data.data.charity.description);
+  return result.data.data.charity;
+};
