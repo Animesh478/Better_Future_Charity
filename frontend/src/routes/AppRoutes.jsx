@@ -9,6 +9,7 @@ import DonationStatusPage from "../pages/DonationStatusPage";
 import CharityDashboardPage from "../pages/CharityDashboardPage";
 import AdminDashboardPage from "../pages/AdminDashboardPage";
 import CreateCharityPage from "../pages/CreateCharityPage";
+import ProjectReportsPage from "../pages/ProjectReportsPage";
 
 const router = createBrowserRouter([
   // --- Public routes : anyone can see these, even without creating an account ---
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: `/charity/:charityId`,
     element: <CharityDetailPage />,
+  },
+  {
+    path: `/projects/:projectId/reports`,
+    element: <ProjectReportsPage />,
   },
 
   // --- Protected Routes ---

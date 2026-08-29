@@ -4,6 +4,7 @@ import { fetchCharityWithId } from "../services/charityApi";
 import Navbar from "../components/Navbar";
 import "./CharityDetailPage.css";
 import { useAuth } from "../context/AuthContext";
+// import { fetchProjectReports } from "../services/impactReportApi";
 
 function formatINR(amount) {
   return new Intl.NumberFormat("en-IN", {
@@ -12,6 +13,59 @@ function formatINR(amount) {
     maximumFractionDigits: 0,
   }).format(amount);
 }
+
+// function ProjectReportsViewer({ projectId }) {
+//   const [reports, setReports] = useState(null); // null = not fetched yet
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+
+//   useEffect(() => {
+//     let cancelled = false;
+//     setLoading(true);
+//     setError(null);
+
+//     fetchProjectReports(projectId)
+//       .then((data) => {
+//         if (!cancelled) setReports(data.reports || []);
+//       })
+//       .catch((err) => {
+//         if (!cancelled) setError(err.message);
+//       })
+//       .finally(() => {
+//         if (!cancelled) setLoading(false);
+//       });
+
+//     return () => {
+//       cancelled = true;
+//     };
+//   }, [projectId]);
+
+//   if (loading)
+//     return <div className="detail-reports-status">Loading updates…</div>;
+//   if (error) return <div className="detail-reports-status error">{error}</div>;
+//   if (reports.length === 0) {
+//     return (
+//       <div className="detail-reports-status">No impact updates posted yet.</div>
+//     );
+//   }
+
+//   return (
+//     <ul className="detail-reports-list">
+//       {reports.map((r) => (
+//         <li key={r.id}>
+//           <div className="detail-reports-list-top">
+//             <strong>{r.title}</strong>
+//             <span>{new Date(r.createdAt).toLocaleDateString("en-IN")}</span>
+//           </div>
+//           <p>{r.content}</p>
+//           <span className="detail-reports-funds">
+//             Funds utilized: {formatINR(r.fundsUtilized)}
+//           </span>
+//         </li>
+//       ))}
+//     </ul>
+//   );
+// }
 
 // Public page — anyone can view a charity's projects. Only the "Donate" click
 // on an individual project is gated, matching the dashboard's pattern.
@@ -24,6 +78,7 @@ export default function CharityDetailPage() {
   const [charity, setCharity] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  // const [expandedReportsId, setExpandedReportsId] = useState(null);
 
   if (prevCharityId !== charityId) {
     setPrevCharityId(charityId);
@@ -130,15 +185,35 @@ export default function CharityDetailPage() {
                         </span>
                       </div>
 
-                      <button
-                        className="detail-project-donate"
-                        onClick={() => handleDonateClick(project)}
-                        disabled={project.status !== "Active"}
-                      >
-                        {project.status === "Active"
-                          ? "Donate to this project"
-                          : "Project completed"}
-                      </button>
+                      <div className="detail-project-actions ">
+                        <button
+                          className="detail-project-donate"
+                          onClick={() => handleDonateClick(project)}
+                          disabled={project.status !== "Active"}
+                        >
+                          {project.status === "Active"
+                            ? "Donate to this project"
+                            : "Project completed"}
+                        </button>
+
+                        <Link
+                          to={`/projects/${project.id}/reports`}
+                          state={{
+                            project,
+                            charityName: charity.name,
+                            charityId: charity.id,
+                          }}
+                          className="detail-project-reports-toggle"
+                        >
+                          View impact reports
+                        </Link>
+                      </div>
+
+                      {/* {expandedReportsId === project.id && (
+                        <div className="detail-reports-panel">
+                          <ProjectReportsViewer projectId={project.id} />
+                        </div>
+                      )} */}
                     </div>
                   );
                 })}

@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+.reports-root {
+  --bg-deep: #12291f;
+  --paper: #f6f1e4;
+  --paper-line: #cdc4a8;
+  --ink: #1d2b22;
+  --ink-soft: #4c5850;
+  --gold: #c89b3c;
+  --gold-dark: #a97f2b;
+  --error: #a8452b;
+
+  min-height: 100vh;
+  background: var(--paper);
+  font-family: "Inter", sans-serif;
+  color: var(--ink);
+}
+
+.reports-hero {
+  background: var(--bg-deep);
+  color: var(--paper);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reports-back {
+  display: inline-block;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  color: rgba(246, 241, 228, 0.65);
+  text-decoration: none;
+  margin-bottom: 20px;
+}
+
+.reports-back:hover {
+  color: var(--gold);
+}
+
+.reports-tag {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.reports-hero h1 {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 28px;
+  margin: 0 0 10px;
+}
+
+.reports-hero p {
+  max-width: 65ch;
+  font-size: 14px;
+  color: rgba(246, 241, 228, 0.78);
+  line-height: 1.6;
+}
+
+.reports-body {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 36px 40px 64px;
+}
+
+.reports-status {
+  text-align: center;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 13px;
+  color: var(--ink-soft);
+  padding: 60px 0;
+}
+
+.reports-status.error {
+  color: var(--error);
+}
+
+.reports-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.reports-list-item {
+  background: #fffdf8;
+  border: 1px solid var(--paper-line);
+  border-left: 3px solid var(--gold);
+  padding: 18px 22px;
+}
+
+.reports-list-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.reports-list-top h3 {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0;
+}
+
+.reports-list-top span {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.reports-list-item p {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin: 0 0 10px;
+}
+
+.reports-funds {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11.5px;
+  color: var(--gold-dark);
+}
