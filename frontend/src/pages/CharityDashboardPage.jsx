@@ -131,20 +131,46 @@ function ImpactReportsPanel({ project }) {
   const [submitting, setSubmitting] = useState(false);
 
   const loadReports = useCallback(async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const data = await fetchProjectReports(project.id);
-      setReports(data.reports || []);
+      // setReports(data.reports || []);
+      return data.reports || [];
     } catch {
-      setReports([]);
-    } finally {
-      setLoading(false);
+      return [];
+      // setReports([]);
     }
+    // finally {
+    //   setLoading(false);
+    // }
   }, [project.id]);
 
   useEffect(() => {
-    loadReports();
-  }, [loadReports]);
+    let isMounted = true;
+    const doInitialLoad = async function () {
+      const result = await loadReports();
+      // this check is used so that if the component has unmounted before the api call fetches the data,then isMounted will be false (because the cleanup function will run) and the state updating functions will not run. hence it will not result in state leaks
+      if (isMounted) {
+        setReports(result);
+        setLoading(false);
+      }
+    };
+    if (project?.id) {
+      doInitialLoad();
+    }
+
+    // so if the user navigated away while the data was loading,React will have already executed the cleanup function, flipping the isMounted value to false. so the if(isMounted) check will fail and the state updates are safely skipped.
+    return () => {
+      isMounted = false;
+    };
+  }, [loadReports, project?.id]);
+
+  const refreshReports = async function () {
+    setLoading(true);
+    const data = await loadReports();
+    setReports(data);
+    setLoading(false);
+  };
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -170,7 +196,7 @@ function ImpactReportsPanel({ project }) {
       });
       setForm({ title: "", content: "", fundsUtilized: "" });
       setShowForm(false);
-      loadReports();
+      refreshReports();
     } catch (err) {
       setError(err.message);
     } finally {

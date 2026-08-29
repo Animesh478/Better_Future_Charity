@@ -9,4 +9,6 @@ impactReportRouter
   .route("/generate-report/:projectId")
   .post(generateImpactReport);
 
+// impactReportRouter.route("/fetch-reports/:projectId").get(fetchReports);
+
 module.exports = impactReportRouter;
