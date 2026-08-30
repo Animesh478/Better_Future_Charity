@@ -70,6 +70,7 @@
   font-weight: 600;
   font-size: 19px;
   margin: 32px 0 14px;
+  color: var(--ink);
 }
 
 .md-body h2:first-of-type {
