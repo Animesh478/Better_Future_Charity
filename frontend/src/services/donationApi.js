@@ -19,3 +19,23 @@ export const verifyDonationStatus = async function (donationId) {
   //   console.log(result);
   return result.data.data;
 };
+
+export const fetchMyDonations = async function () {
+  const result = await axiosClient.get(`/donations/my-donations`);
+  console.log(result);
+  return result.data.data;
+};
+
+export const downloadReceipt = async function (donationId) {
+  const response = await axiosClient.get(`/donations/receipts/${donationId}`, {
+    responseType: "blob",
+  });
+  const url = window.URL.createObjectURL(new Blob([response.data]));
+  const link = document.createElement("a");
+  link.href = url;
+  link.setAttribute("download", `receipt_${donationId}.pdf`);
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  window.URL.revokeObjectURL(url);
+};

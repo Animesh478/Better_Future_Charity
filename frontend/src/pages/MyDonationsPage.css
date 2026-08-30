@@ -1,0 +1,174 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+.my-donations-root {
+  --bg-deep: #12291f;
+  --paper: #f6f1e4;
+  --paper-line: #cdc4a8;
+  --ink: #1d2b22;
+  --ink-soft: #4c5850;
+  --gold: #c89b3c;
+  --gold-dark: #a97f2b;
+  --error: #a8452b;
+
+  min-height: 100vh;
+  background: var(--paper);
+  font-family: "Inter", sans-serif;
+  color: var(--ink);
+}
+
+.md-hero {
+  background: var(--bg-deep);
+  color: var(--paper);
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.md-hero-tag {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(246, 241, 228, 0.6);
+  margin-bottom: 10px;
+}
+
+.md-hero h1 {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 30px;
+  margin: 0 0 10px;
+}
+
+.md-hero p {
+  font-size: 14px;
+  color: rgba(246, 241, 228, 0.78);
+  max-width: 60ch;
+}
+
+.md-body {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 36px 40px 64px;
+}
+
+.md-status {
+  text-align: center;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 13px;
+  color: var(--ink-soft);
+  padding: 50px 0;
+}
+
+.md-status.error {
+  color: var(--error);
+}
+
+.md-body h2 {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 19px;
+  margin: 32px 0 14px;
+}
+
+.md-body h2:first-of-type {
+  margin-top: 0;
+}
+
+.md-charity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.md-charity-card {
+  background: #fffdf8;
+  border: 1px solid var(--paper-line);
+  padding: 16px 18px;
+}
+
+.md-charity-name {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-bottom: 8px;
+}
+
+.md-charity-total {
+  font-family: "Fraunces", serif;
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--ink);
+}
+
+.md-charity-count {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10.5px;
+  color: var(--gold-dark);
+  margin-top: 4px;
+}
+
+.md-table {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--paper-line);
+  background: #fffdf8;
+}
+
+.md-table-head,
+.md-table-row {
+  display: grid;
+  grid-template-columns: 110px 1.2fr 1.4fr 110px 90px;
+  gap: 10px;
+  padding: 12px 16px;
+  align-items: center;
+}
+
+.md-table-head {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--paper-line);
+}
+
+.md-table-row {
+  font-size: 13px;
+  border-bottom: 1px solid var(--paper-line);
+}
+
+.md-table-row:last-child {
+  border-bottom: none;
+}
+
+.md-receipt-btn {
+  font-family: "Inter", sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  background: none;
+  border: 1px solid var(--paper-line);
+  color: var(--gold-dark);
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.md-receipt-btn:hover:not(:disabled) {
+  border-color: var(--gold-dark);
+}
+
+.md-receipt-btn:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+@media (max-width: 700px) {
+  .md-table-head,
+  .md-table-row {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-flow: row;
+  }
+  .md-table-head {
+    display: none;
+  }
+}

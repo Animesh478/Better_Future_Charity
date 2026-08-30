@@ -17,7 +17,7 @@ export default function Navbar() {
       {/* navigate to dashboard */}
       <Link to="/" className="gwl-navbar-mark">
         <span className="dot" />
-        GIVEWELL LEDGER
+        GIVE WELL LEDGER
       </Link>
 
       <nav className="gwl-navbar-links">

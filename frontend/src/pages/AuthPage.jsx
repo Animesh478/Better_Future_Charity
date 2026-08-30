@@ -130,7 +130,7 @@ export default function AuthPage({ onLoginSuccess }) {
           <div>
             <div className="auth-mark">
               <span className="dot" />
-              BE THE CHANGE LEDGER
+              GIVE WELL LEDGER
             </div>
             <h1 className="auth-headline">
               Every donation

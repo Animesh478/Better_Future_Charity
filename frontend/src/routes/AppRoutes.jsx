@@ -11,6 +11,7 @@ import AdminDashboardPage from "../pages/AdminDashboardPage";
 import CreateCharityPage from "../pages/CreateCharityPage";
 import ProjectReportsPage from "../pages/ProjectReportsPage";
 import ProfilePage from "../pages/ProfilePage";
+import MyDonationsPage from "../pages/MyDonationsPage";
 
 const router = createBrowserRouter([
   // --- Public routes : anyone can see these, even without creating an account ---
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
       { path: "/donations/status", element: <DonationStatusPage /> },
       { path: "/charity/register", element: <CreateCharityPage /> },
       { path: "/profile", element: <ProfilePage /> },
+      { path: "/donations", element: <MyDonationsPage /> },
       {
         path: "/charity/dashboard",
         element: <CharityDashboardPage />,
