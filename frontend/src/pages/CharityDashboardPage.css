@@ -183,6 +183,7 @@
   font-weight: 600;
   font-size: 20px;
   margin: 0 0 16px;
+  color: var(--ink);
 }
 
 .cd-new-project-toggle {
